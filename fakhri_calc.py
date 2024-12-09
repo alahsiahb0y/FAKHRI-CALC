@@ -9,7 +9,7 @@ def main():
             }
         </style>
     """, unsafe_allow_html=True)
-    st.title("Kalkulator Punya Fakhri Yang Sayang Sama Ara, :kissing_heart:")
+    st.title("Kalkulator Punya Fakhri Yang Sayang Sama Ara :kissing_heart:")
     st.write("Aplikasi ini menghitung operasi dasar matematika seperti penjumlahan (+), pengurangan (-), perkalian (x), dan pembagian (/).")
     
     # Input angka pertama
