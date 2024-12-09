@@ -1,5 +1,14 @@
 import streamlit as st
 
+# Menggunakan CSS untuk mengganti background dengan warna
+st.markdown("""
+    <style>
+        body {
+            background-color: #F0F8FF;  # Ganti warna sesuai keinginan
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 def main():
     st.title("Kalkulator Punya Fakhri Yang Sayang Sama Ara")
     st.write("Aplikasi ini menghitung operasi dasar matematika seperti penjumlahan (+), pengurangan (-), perkalian (x), dan pembagian (/).")
@@ -41,7 +50,7 @@ st.write("IDENTITAS DEVELOPER: ")
 st.write("Nama Saya Muhammad Fakhri Al-Fathi")
 st.write("Berkuliah Politeknik AKA Bogor")
 st.write("Saya Suka Makan Mie Sarimi Isi 2 Ayam Kremes #ga10gaasik")
-st.write(":Angry:")
+st.write(":sunglassses:")
 
 
 
