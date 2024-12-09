@@ -5,7 +5,7 @@ def main():
     st.markdown("""
         <style>
             body {
-                background-color: #F0F8FF;  # Ganti warna sesuai keinginan
+                background-color: #FFFF;
             }
         </style>
     """, unsafe_allow_html=True)
@@ -49,7 +49,7 @@ st.write("IDENTITAS DEVELOPER: ")
 st.write("Nama Saya Muhammad Fakhri Al-Fathi")
 st.write("Berkuliah Politeknik AKA Bogor")
 st.write("Saya Suka Makan Mie Sarimi Isi 2 Ayam Kremes #ga10gaasik")
-st.write(":sunglasses:")
+st.write(":kissing_heart:"*100)
 
 
 
