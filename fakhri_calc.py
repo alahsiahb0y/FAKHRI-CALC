@@ -1,7 +1,7 @@
 import streamlit as st
 
 def main():
-    st.title("Kalkulator Punya Fakhri")
+    st.title("Kalkulator Punya Fakhri Yang Sayang Sama Ara")
     st.write("Aplikasi ini menghitung operasi dasar matematika seperti penjumlahan (+), pengurangan (-), perkalian (x), dan pembagian (/).")
     
     # Input angka pertama
@@ -37,9 +37,11 @@ def main():
 if __name__ == "__main__":
     main()
 
-st.write("NAMA SAYA MUHAMMAD FAKHRI AL-FATHI")
-st.write("BERKULIAH DI POLITEKNIK AKA BOGOR")
-st.write(":sunglasses:")
+st.write("IDENTITAS DEVELOPER: ")
+st.write("Nama Saya Muhammad Fakhri Al-Fathi")
+st.write("Berkuliah Politeknik AKA Bogor")
+st.write("Saya Suka Makan Mie Sarimi Isi 2 Ayam Kremes #ga10gaasik")
+st.write(":Angry:")
 
 
 
