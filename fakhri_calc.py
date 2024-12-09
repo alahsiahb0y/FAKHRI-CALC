@@ -1,140 +1,3 @@
-import streamlit as st
-
-# Fungsi untuk menghitung hasil kalkulasi
-def calculate_result(expression):
-    try:
-        return eval(expression)
-    except:
-        return "Error"
-
-# Desain dan header aplikasi
-st.set_page_config(page_title="Kalkulator Sederhana", page_icon="💻", layout="wide")
-st.title("Kalkulator Sederhana")
-st.subheader("Kalkulator interaktif dengan tampilan yang menarik!")
-
-# Tampilan kalkulator interaktif
-st.markdown(
-    """
-    <style>
-    .calc-button {
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        padding: 20px;
-        font-size: 18px;
-        cursor: pointer;
-        width: 60px;
-        height: 60px;
-        border-radius: 10px;
-    }
-    .calc-button:hover {
-        background-color: #45a049;
-    }
-    .calc-display {
-        font-size: 30px;
-        background-color: #f4f4f4;
-        border: none;
-        padding: 10px;
-        width: 100%;
-        text-align: right;
-        border-radius: 10px;
-    }
-    </style>
-    """, unsafe_allow_html=True
-)
-
-# Variabel untuk menyimpan ekspresi kalkulator
-if 'expression' not in st.session_state:
-    st.session_state.expression = ""
-
-# Input tampilan kalkulasi
-input_display = st.text_input("Tampilan Kalkulasi", value=st.session_state.expression, disabled=True, key="display", label_visibility="collapsed")
-
-# Fungsi untuk memperbarui ekspresi kalkulasi
-def update_expression(value):
-    st.session_state.expression += value
-
-# Fungsi untuk menghapus ekspresi kalkulasi
-def clear_expression():
-    st.session_state.expression = ""
-
-# Fungsi untuk menghitung hasil kalkulasi
-def get_result():
-    result = calculate_result(st.session_state.expression)
-    return result
-
-# Menambahkan tombol kalkulator
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    if st.button("7", key="7"):
-        update_expression("7")
-with col2:
-    if st.button("8", key="8"):
-        update_expression("8")
-with col3:
-    if st.button("9", key="9"):
-        update_expression("9")
-        
-with col1:
-    if st.button("4", key="4"):
-        update_expression("4")
-with col2:
-    if st.button("5", key="5"):
-        update_expression("5")
-with col3:
-    if st.button("6", key="6"):
-        update_expression("6")
-        
-with col1:
-    if st.button("1", key="1"):
-        update_expression("1")
-with col2:
-    if st.button("2", key="2"):
-        update_expression("2")
-with col3:
-    if st.button("3", key="3"):
-        update_expression("3")
-        
-with col1:
-    if st.button("0", key="0"):
-        update_expression("0")
-with col2:
-    if st.button("+", key="+"):
-        update_expression("+")
-with col3:
-    if st.button("-", key="-"):
-        update_expression("-")
-        
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    if st.button("*", key="*"):
-        update_expression("*")
-with col2:
-    if st.button("/", key="/"):
-        update_expression("/")
-with col3:
-    if st.button("C", key="clear"):
-        clear_expression()
-
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    if st.button("(", key="("):
-        update_expression("(")
-with col2:
-    if st.button(")", key=")"):
-        update_expression(")")
-with col3:
-    if st.button("=", key="equal"):
-        result = get_result()
-        st.text(f"Hasil: {result}")
-
-# Tampilan hasil kalkulasi
-st.write(f"**Hasil: {get_result()}**")
-
-
 # import streamlit as st
 
 # def main():
@@ -186,6 +49,110 @@ st.write(f"**Hasil: {get_result()}**")
 # st.write("Kampus: Politeknik AKA Bogor")
 # st.write("Notes: Saya Suka Makan Mie Sarimi Isi 2 Ayam Kremes #ga10gaasik")
 
+import streamlit as st
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt # type: ignore
+from sklearn.linear_model import LinearRegression # type: ignore
+from streamlit_option_menu import option_menu # type: ignore
+
+# Fungsi untuk menghitung % inhibisi
+def calculate_inhibition(abs_blank, abs_sample):
+    return ((abs_blank - abs_sample) / abs_blank) * 100
+
+# Fungsi untuk menghitung IC50 dari regresi linier
+def calculate_ic50(concentrations, inhibitions):
+    # Konversi ke array numpy
+    x = np.array(concentrations).reshape(-1, 1)
+    y = np.array(inhibitions)
+    
+    # Model regresi linier
+    model = LinearRegression()
+    model.fit(x, y)
+    
+    # IC50 adalah konsentrasi saat inhibisi 50%
+    ic50 = (50 - model.intercept_) / model.coef_[0]
+    return ic50, model
+
+# Tema dan desain Streamlit
+st.set_page_config(page_title="DPPH Bioassay", layout="wide", page_icon="🌿")
+st.markdown(
+    """
+    <style>
+    .main {
+        background-color: #f7f7f7;
+    }
+    .sidebar .sidebar-content {
+        background-color: #e0f7fa;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+# Header aplikasi
+st.title("🌿 **Bioassay DPPH Antioxidant Activity**")
+st.markdown("Sebuah aplikasi interaktif untuk menghitung aktivitas antioksidan berdasarkan metode DPPH.")
+st.markdown("---")
+
+# Sidebar untuk input data
+with st.sidebar:
+    st.header("📋 Input Data")
+    extract_name = st.text_input("Nama ekstrak:", placeholder="Masukkan nama ekstrak...")
+    amount_extracted = st.number_input("Massa ekstrak (mg):", min_value=0.0, step=0.1)
+    solvent_volume = st.number_input("Volume pelarut (mL):", min_value=0.0, step=0.1)
+    num_dilutions = st.number_input("Jumlah pengenceran:", min_value=1, step=1, value=5)
+    dilution_factors = st.text_area(
+        "Faktor pengenceran (pisahkan dengan koma):",
+        placeholder="Contoh: 1, 2, 4, 8, 16",
+    )
+    abs_blank = st.number_input("Absorbansi blanko (DPPH):", min_value=0.0, step=0.01)
+    abs_samples = st.text_area(
+        "Absorbansi sampel (pisahkan dengan koma):",
+        placeholder="Contoh: 0.7, 0.5, 0.3...",
+    )
+
+# Perhitungan konsentrasi larutan induk
+if solvent_volume > 0:
+    stock_concentration = amount_extracted / solvent_volume  # mg/mL
+    st.sidebar.write(f"📌 Konsentrasi larutan induk: **{stock_concentration:.2f} mg/mL**")
+
+# Proses data pengenceran
+if dilution_factors and abs_samples:
+    dilution_factors = list(map(float, dilution_factors.split(',')))
+    abs_samples = list(map(float, abs_samples.split(',')))
+    concentrations = [stock_concentration / factor for factor in dilution_factors]
+    inhibitions = [calculate_inhibition(abs_blank, abs_sample) for abs_sample in abs_samples]
+    
+    # Menampilkan data
+    data = pd.DataFrame({
+        "Konsentrasi (ppm)": concentrations,
+        "% Inhibisi": inhibitions
+    })
+    st.markdown("### 📊 Data Aktivitas Antioksidan")
+    st.dataframe(data, use_container_width=True)
+
+    # Hitung IC50 dan regresi
+    ic50, model = calculate_ic50(concentrations, inhibitions)
+    st.success(f"**IC50: {ic50:.2f} ppm**")
+
+    # Plot grafik interaktif
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.scatter(concentrations, inhibitions, label="Data", color="#00796b", s=100)
+    x_vals = np.linspace(min(concentrations), max(concentrations), 100)
+    y_vals = model.predict(x_vals.reshape(-1, 1))
+    ax.plot(x_vals, y_vals, label="Regresi Linier", color="#d32f2f", linewidth=2)
+    ax.set_xlabel("Konsentrasi (ppm)", fontsize=12)
+    ax.set_ylabel("% Inhibisi", fontsize=12)
+    ax.set_title(f"Regresi Aktivitas Antioksidan: {extract_name}", fontsize=14)
+    ax.legend()
+    ax.grid(alpha=0.3)
+    st.pyplot(fig)
+
+# Footer
+st.markdown("---")
+st.markdown("💡 **Tips**: Pastikan data pengenceran dan absorbansi diisi dengan benar untuk hasil yang akurat.")
+st.markdown("🛠️ Dibuat oleh: **[Nama Anda]**")
 
 
 
