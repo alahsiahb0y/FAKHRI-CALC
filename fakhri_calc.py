@@ -9,8 +9,8 @@ def main():
             }
         </style>
     """, unsafe_allow_html=True)
-    st.title("Kalkulator Punya Fakhri Yang Sayang Sama Ara :kissing_heart:")
-    st.write("Aplikasi ini menghitung operasi dasar matematika seperti penjumlahan (+), pengurangan (-), perkalian (x), dan pembagian (/).")
+    st.title("=== KALKULATOR SEDEHANA ===")
+    st.write("Kemampuan kalkulator terbatas pada : penjumlahan (+), pengurangan (-), perkalian (x), dan pembagian (/).")
     
     # Input angka pertama
     num1 = st.number_input("Masukkan angka pertama:", value=0.0, step=1.0)
@@ -45,10 +45,9 @@ def main():
 if __name__ == "__main__":
     main()
 
-st.write("IDENTITAS DEVELOPER: ")
-st.write("Nama Saya Muhammad Fakhri Al-Fathi")
-st.write("Berkuliah Politeknik AKA Bogor")
-st.write("Saya Suka Makan Mie Sarimi Isi 2 Ayam Kremes #ga10gaasik")
+st.write("created by: Muhammad Fakhri Al-Fathi")
+st.write("Kampus: Politeknik AKA Bogor")
+st.write("Notes: Saya Suka Makan Mie Sarimi Isi 2 Ayam Kremes #ga10gaasik")
 
 
 
