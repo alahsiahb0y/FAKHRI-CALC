@@ -37,7 +37,9 @@ def main():
 if __name__ == "__main__":
     main()
 
-st.write("NAMA SAYA FAKHRI BERKULIAH DI AKA:sunglasses:")
+st.write("NAMA SAYA MUHAMMAD FAKHRI AL-FATHI")
+st.write("BERKULIAH DI POLITEKNIK AKA BOGOR")
+st.write(":sunglasses:")
 
 
 
