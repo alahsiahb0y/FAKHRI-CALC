@@ -9,7 +9,7 @@ def main():
             }
         </style>
     """, unsafe_allow_html=True)
-    st.title("Kalkulator Punya Fakhri Yang Sayang Sama Ara")
+    st.title("Kalkulator Punya Fakhri Yang Sayang Sama Ara, :kissing_heart:")
     st.write("Aplikasi ini menghitung operasi dasar matematika seperti penjumlahan (+), pengurangan (-), perkalian (x), dan pembagian (/).")
     
     # Input angka pertama
@@ -49,7 +49,7 @@ st.write("IDENTITAS DEVELOPER: ")
 st.write("Nama Saya Muhammad Fakhri Al-Fathi")
 st.write("Berkuliah Politeknik AKA Bogor")
 st.write("Saya Suka Makan Mie Sarimi Isi 2 Ayam Kremes #ga10gaasik")
-st.write(":kissing_heart:"*100)
+
 
 
 
